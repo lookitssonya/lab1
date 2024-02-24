@@ -1,0 +1,96 @@
+#include <iostream>
+#include <string>
+using namespace std;
+// Определение структуры узла списка
+struct Node {
+    string data;
+    Node* next;
+};
+// Класс очереди
+class Queue {
+private:
+    Node* front; // Указатель на начало очереди
+    Node* rear; // Указатель на конец очереди
+public:
+    Queue() {
+        front = nullptr; // Инициализация пустой очереди
+        rear = nullptr;
+    }
+    // Проверка, является ли очередь пустой
+    bool isEmpty() {
+        return front == nullptr;
+    }
+
+    // Добавление элемента в очередь
+    void enqueue(const string& value) {
+        Node* newNode = new Node; // Создание нового узла
+        newNode->data = value;
+        newNode->next = nullptr;
+        if (isEmpty()) {
+            front = rear = newNode; // Если очередь пуста, новый узел ста-новит-ся началом и концом очереди
+        }
+        else {
+            rear->next = newNode; // Добавление нового узла в конец очереди
+            rear = newNode; // Новый узел становится новым концом очереди
+        }
+    }
+    // Удаление элемента из очереди
+    void dequeue() {
+        if (isEmpty()) {
+            cout << "Очередь пуста!" << endl;
+            return;
+        }
+        Node* temp = front;
+        front = front->next;
+        delete temp; // Освобождение памяти удаленного узла
+
+        if (front == nullptr) {
+            rear = nullptr; // Если после удаления очередь стала пустой, обнов-ляем указатель на конец очереди
+        }
+    }
+    // Вывод содержимого очереди
+    void printQueue() {
+        if (isEmpty()) {
+            cout << "Очередь пуста!" << endl;
+            return;
+        }
+        Node* current = front;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+    // Найти суммарную длину всех строк, кроме последней
+    int sumStringLength() {
+        if (isEmpty() || front == rear) {
+            return 0; // Если очередь пуста или содержит только один эле-мент, суммарная длина будет равна 0
+        }
+        int sum = 0;
+        Node* current = front;
+        while (current->next != rear) {
+            sum += current->data.length();
+            current = current->next;
+        }
+        return sum;
+    }
+};
+
+int main() {
+    Queue queue;
+    // Добавление строк в очередь
+    queue.enqueue("one");
+    queue.enqueue("two");
+    queue.enqueue("three");
+    queue.enqueue("four");
+    cout << "Содержимое очереди: ";
+    queue.printQueue();
+    // Добавление строки "five"
+    queue.enqueue("five");
+    cout << "Содержимое очереди после изменений: ";
+    queue.printQueue();
+    // Нахождение суммарной длины всех строк, кроме последней
+    int sumLength = queue.sumStringLength();
+    cout << "Суммарная длина строк, кроме последней: " << sumLength << endl;
+    return 0;
+}
