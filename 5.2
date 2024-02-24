@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std; 
+
+struct Node {
+    double data;
+    Node* prev;
+    Node* next;
+};
+class LinkedList {
+private:
+    Node* head;
+    Node* tail;
+
+public:
+    LinkedList() : head(nullptr), tail(nullptr) {}
+    void insert(double value) {
+        Node* newNode = new Node;
+        newNode->data = value;
+        newNode->prev = nullptr;
+        newNode->next = nullptr;
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        }
+        else {
+            newNode->prev = tail;
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+    void removeFractionGreater() {
+        Node* current = head;
+        while (current != nullptr) {
+            double fraction = current->data - static_cast<int>(current->data);
+            if (fraction > 0.5) {
+                Node* temp = current;
+                if (current == head) {
+                    head = current->next;
+                    if (head != nullptr) {
+                        head->prev = nullptr;
+                    }
+                }
+                else if (current == tail) {
+                    tail = current->prev;
+                    if (tail != nullptr) {
+                        tail->next = nullptr;
+                    }
+                }
+                else {
+                    current->prev->next = current->next;
+                    current->next->prev = current->prev;
+                }
+                current = current->next;
+                delete temp;
+            }
+            else {
+                current = current->next;
+            }
+        }
+    }
+
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    LinkedList list;
+    setlocale(LC_ALL, "Russian");
+    double input;
+    cout << "Введите вещественные числа (для завершения введите 0):" << endl;
+    do {
+        cin >> input;
+        if (input != 0) {
+            list.insert(input);
+        }
+    } while (input != 0);
+    list.removeFractionGreater();
+    cout << "Список после удаления элементов: ";
+    list.printList();
+    return 0;
+}
