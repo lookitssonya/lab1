@@ -1,0 +1,84 @@
+#include <iostream> 
+using namespace std;
+// Определение структуры узла списка 
+struct Node {
+    int data;
+    Node* next;
+};
+// Класс стека 
+class Stack {
+private:
+    Node* top; // Указатель на вершину стека 
+public:
+    Stack() {
+        top = nullptr; // Инициализация пустого стека 
+    }
+    // Проверка, является ли стек пустым 
+    bool isEmpty() {
+        return top == nullptr;
+    }
+    // Добавление элемента в стек 
+    void push(int value) {
+        Node* newNode = new Node; // Создание нового узла 
+        newNode->data = value;
+        newNode->next = top;
+        top = newNode; // Новый узел становится вершиной стека 
+    }
+    // Удаление элемента из стека 
+    void pop() {
+        setlocale(LC_ALL, "Russian");
+        if (isEmpty()) {
+            cout << "Стек пуст!" << endl;
+            return;
+        }
+        Node* temp = top;
+        top = top->next;
+        delete temp; // Освобождение памяти удаленного узла 
+    }
+    // Вывод содержимого стека 
+    void printStack() {
+        if (isEmpty()) {
+            cout << "Стек пуст!" << endl;
+            return;
+        }
+        Node* current = top;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+    // Найти сумму положительных элементов в стеке 
+    int sumPositiveElements() {
+        int sum = 0;
+        Node* current = top;
+        while (current != nullptr) {
+            if (current->data > 0) {
+                sum += current->data;
+            }
+            current = current->next;
+        }
+        return sum;
+    }
+};
+
+int main() {
+    Stack stack;
+
+    // Добавление элементов в стек 
+    stack.push(-5);
+    stack.push(3);
+    stack.push(-4);
+    stack.push(5);
+    cout << "Содержимое стека: ";
+    stack.printStack();
+    // Удаление одного элемента и добавление числа 10 
+    stack.pop();
+    stack.push(10);
+    cout << "Содержимое стека после изменений: ";
+    stack.printStack();
+    // Нахождение суммы положительных элементов 
+    int sum = stack.sumPositiveElements();
+    cout << "Сумма положительных элементов: " << sum << endl;
+    return 0;
+}
