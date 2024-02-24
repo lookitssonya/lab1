@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+Node* rearrangeList(Node* head) {
+    if (head == nullptr) {
+        return nullptr;
+    }
+    Node* oddListTail = nullptr;
+    Node* current = head;
+    while (current->next != nullptr) {
+        Node* nextNode = current->next;
+        if (nextNode->next != nullptr) {
+            current->next = nextNode->next;
+            nextNode->next->prev = current;
+        }
+        else {
+            current->next = nullptr;
+        }
+        if (oddListTail == nullptr) {
+            oddListTail = nextNode;
+            oddListTail->prev = nullptr;
+        }
+        else {
+            oddListTail->next = nextNode;
+            nextNode->prev = oddListTail;
+            oddListTail = nextNode;
+        }
+        current = current->next;
+    }
+    if (oddListTail != nullptr) {
+        oddListTail->next = nullptr;
+    }
+    return head;
+}
+
+void printList(Node* head) {
+    Node* current = head;
+    while (current != nullptr) {
+        cout << current->data << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    // Пример создания двусвязного списка
+    Node* head = new Node{ 1, nullptr, nullptr };
+    Node* second = new Node{ 2, head, nullptr };
+    Node* third = new Node{ 3, second, nullptr };
+    Node* fourth = new Node{ 4, third, nullptr };
+    Node* fifth = new Node{ 5, fourth, nullptr };
+    head->next = second;
+    second->next = third;
+    third->next = fourth;
+    fourth->next = fifth;
+    Node* rearrangedHead = rearrangeList(head);
+    cout << "Указатель на первый элемент преобразованного списка: " << rear-rangedHead << endl;
+    return 0;
+}
