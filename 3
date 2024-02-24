@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* mergeQueues(Node* P1, Node* P2, Node* P3, Node* P4) {
+    Node* newQueueStart = nullptr;
+    Node* newQueueEnd = nullptr;
+    while (P1 != nullptr && P3 != nullptr) {
+        if (P1->data <= P3->data) {
+            if (newQueueEnd == nullptr) {
+                newQueueStart = P1;
+                newQueueEnd = P1;
+            }
+            else {
+                newQueueEnd->next = P1;
+                newQueueEnd = P1;
+            }
+            P1 = P1->next;
+        }
+        else {
+            if (newQueueEnd == nullptr) {
+                newQueueStart = P3;
+                newQueueEnd = P3;
+            }
+            else {
+                newQueueEnd->next = P3;
+                newQueueEnd = P3;
+            }
+            P3 = P3->next;
+        }
+    }
+    if (P1 != nullptr) {
+        if (newQueueEnd == nullptr) {
+            newQueueStart = P1;
+            newQueueEnd = P2;
+        }
+        else {
+            newQueueEnd->next = P1;
+            newQueueEnd = P2;
+        }
+    }
+    if (P3 != nullptr) {
+        if (newQueueEnd == nullptr) {
+            newQueueStart = P3;
+            newQueueEnd = P4;
+        }
+        else {
+            newQueueEnd->next = P3;
+            newQueueEnd = P4;
+        }
+    }
+    return newQueueStart;
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    // Создаем исходные очереди
+    Node* P1 = new Node{ 1, nullptr };
+    Node* P2 = new Node{ 3, nullptr };
+    Node* P3 = new Node{ 2, nullptr };
+    Node* P4 = new Node{ 4, nullptr };
+    // Устанавливаем связи между элементами очередей
+    P1->next = P2;
+    P3->next = P4;
+    // Объединяем очереди
+    Node* mergedQueue = mergeQueues(P1, P2, P3, P4);
+    // Выводим указатели на начало и конец полученной очереди
+    cout << "Начало новой очереди: " << mergedQueue << endl;
+    cout << "Конец новой очереди: " << P4 << endl;
+    return 0;
+}
