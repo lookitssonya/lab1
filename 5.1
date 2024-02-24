@@ -1,0 +1,89 @@
+#include <iostream>
+using namespace std;
+struct Node {
+    double data;
+    Node* next;
+};
+class LinkedList {
+private:
+    Node* head;
+public:
+    LinkedList() : head(nullptr) {}
+    void insert(double value) {
+        Node* newNode = new Node;
+        newNode->data = value;
+        newNode->next = nullptr;
+        if (head == nullptr) {
+            head = newNode;
+        }
+        else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+    }
+    void insertAfterNegative() {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data < 0) {
+                Node* newNode = new Node;
+                newNode->data = 1.5;
+                newNode->next = current->next;
+                current->next = newNode;
+                current = newNode->next; // Пропускаем только что вставлен-ный узел
+            }
+            else {
+                current = current->next;
+            }
+        }
+    }
+    void removeRange() {
+        Node* current = head;
+        Node* prev = nullptr;
+        while (current != nullptr) {
+            if (current->data >= 2 && current->data <= 5) {
+                if (prev == nullptr) {
+                    head = current->next;
+                }
+                else {
+                    prev->next = current->next;
+                }
+                Node* temp = current;
+                current = current->next;
+                delete temp;
+            }
+            else {
+                prev = current;
+                current = current->next;
+            }
+        }
+    }
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    LinkedList list;
+    double input;
+    cout << "Введите вещественные числа (для завершения введите 0):" << endl;
+    do {
+        cin >> input;
+        if (input != 0) {
+            list.insert(input);
+        }
+    } while (input != 0);
+    list.insertAfterNegative();
+    list.removeRange();
+    cout << "Список после вставки и удаления элементов: ";
+    list.printList();
+    return 0;
+}
