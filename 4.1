@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+// Определение структуры элемента списка
+struct Node {
+    int value;
+    Node* next;
+};
+// Функция для добавления элемента в список
+void addElement(Node*& head, int value) {
+    // Создаем новый элемент списка
+    Node* newNode = new Node;
+    newNode->value = value;
+    newNode->next = nullptr;
+    // Если список пустой, делаем новый элемент головным
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+    // Иначе находим последний элемент списка
+    Node* current = head;
+    while (current->next != nullptr) {
+        current = current->next;
+    }
+
+    // Добавляем новый элемент в конец списка
+    current->next = newNode;
+}
+// Функция для расчета среднего арифметического значений элементов списка
+float calculateAverage(Node* head) {
+    // Начинаем с 5-го элемента списка
+    Node* current = head;
+    for (int i = 0; i < 4; i++) {
+        if (current == nullptr) {
+            // Если элементов меньше пяти, возвращаем 0
+            return 0;
+        }
+        current = current->next;
+    }
+    // Считаем сумму значений элементов
+    int sum = 0;
+    int count = 0;
+    while (current != nullptr) {
+        sum += current->value;
+        count++;
+        current = current->next;
+    }
+
+    // Вычисляем среднее арифметическое
+    return static_cast<float>(sum) / count;
+}
+
+// Основная функция
+int main() {
+    setlocale(LC_ALL, "Russian");
+    // Создаем пустой список
+    Node* head = nullptr;
+    cout << "Введите элементы списка (для завершения ввода введите 0):" << endl;
+    int value;
+    while (true) {
+        cin >> value;
+        if (value == 0) {
+            break;
+        }
+        addElement(head, value);
+    }
+    // Рассчитываем среднее арифметическое
+    float average = calculateAverage(head);
+    cout << "Среднее арифметическое: " << average << endl;
+    // Освобождаем память, занятую элементами списка
+    Node* current = head;
+    while (current != nullptr) {
+        Node* next = current->next;
+        delete current;
+        current = next;
+    }
+    return 0;
+}
