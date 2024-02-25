@@ -2,33 +2,34 @@
 #include <queue>
 #include <string>
 using namespace std;
-struct Student {
-    string surname;
-    double avg_grade;
-};
-void printQueue(queue<Student> q) {
-    setlocale(LC_ALL, "Russian");
-    while (!q.empty()) {
-        cout << "Фамилия: " << q.front().surname << endl;
-        cout << "Средний балл: " << q.front().avg_grade << endl;
-        q.pop();
-    }
-}
-int main() {
-    queue<Student> studentQueue;
-    char choice;
 
-    do {
-        Student newStudent;
-        cout << "Введите фамилия студента: ";
-        cin >> newStudent.surname;
-        cout << "Введите средний балл студента: ";
-        cin >> newStudent.avg_grade;
-        studentQueue.push(newStudent);
-        cout << "Добавить нового студента? (да/нет): ";
-        cin >> choice;
-    } while (choice == 'y');
-    cout << "---- Студенты ----" << endl;
-    printQueue(studentQueue);
+// Структура для хранения информации о студенте
+struct Student {
+    string lastName; // Фамилия студента
+    double averageGrade; // Средний балл студента
+};
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    queue<Student> studentQueue; // Создание очереди студентов
+
+    // Добавление информации о новом студенте в очередь
+    Student newStudent;
+    cout << "Введите фамилию нового студента: ";
+    cin >> newStudent.lastName;
+    cout << "Введите средний балл нового студента: ";
+    cin >> newStudent.averageGrade;
+
+    studentQueue.push(newStudent); // Добавление студента в очередь
+
+    // Просмотр данных очереди
+    cout << "\nДанные студентов:\n";
+    while (!studentQueue.empty()) {
+        Student frontStudent = studentQueue.front(); // Получение первого студента в очереди
+        cout << "Фамилия: " << frontStudent.lastName << endl;
+        cout << "Средний балл: " << frontStudent.averageGrade << endl;
+        studentQueue.pop(); // Удаление первого студента из очереди
+    }
     return 0;
 }
+
