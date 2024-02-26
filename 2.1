@@ -1,11 +1,11 @@
 #include <iostream> 
 using namespace std;
-// Определение структуры узла списка 
+// Определение структуры Node, которая представляет узел списка
 struct Node {
     int data;
     Node* next;
 };
-// Класс стека 
+// Объявление класса Stack
 class Stack {
 private:
     Node* top; // Указатель на вершину стека 
@@ -32,7 +32,7 @@ public:
             return;
         }
         Node* temp = top;
-        top = top->next;
+        top = top->next; // Указатель перенаправляется на следующий элемент
         delete temp; // Освобождение памяти удаленного узла 
     }
     // Вывод содержимого стека 
@@ -41,6 +41,7 @@ public:
             cout << "Стек пуст!" << endl;
             return;
         }
+	     // Проводится итерация по узлам 
         Node* current = top;
         while (current != nullptr) {
             cout << current->data << " ";
@@ -48,7 +49,7 @@ public:
         }
         cout << endl;
     }
-    // Найти сумму положительных элементов в стеке 
+    // Находим сумму положительных элементов в стеке, проходя по всем узлам 
     int sumPositiveElements() {
         int sum = 0;
         Node* current = top;
@@ -82,3 +83,4 @@ int main() {
     cout << "Сумма положительных элементов: " << sum << endl;
     return 0;
 }
+
