@@ -1,12 +1,12 @@
 #include <iostream>
 using namespace std;
-
+// Структура Node, представляющая собой элемент двусвязного списка
 struct Node {
     int data;
     Node* prev;
     Node* next;
 };
-
+// Функция для перестановки элементов в списке
 Node* rearrangeList(Node* head) {
     if (head == nullptr) {
         return nullptr;
@@ -38,7 +38,7 @@ Node* rearrangeList(Node* head) {
     }
     return head;
 }
-
+// Функция для печати списка, которая принимает указатель на начало списка и выводит значе-ние элементов
 void printList(Node* head) {
     Node* current = head;
     while (current != nullptr) {
@@ -61,6 +61,6 @@ int main() {
     third->next = fourth;
     fourth->next = fifth;
     Node* rearrangedHead = rearrangeList(head);
-    cout << "Указатель на первый элемент преобразованного списка: " << rear-rangedHead << endl;
+    cout << "Указатель на первый элемент преобразованного списка: " << rearrangedHead << endl;
     return 0;
 }
