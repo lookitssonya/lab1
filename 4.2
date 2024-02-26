@@ -1,15 +1,17 @@
 #include <iostream>
 using namespace std;
+// Определяем структуру Node, представляющую собой элемент списка
 struct Node {
     int data;
     Node* next;
 };
+//Объявляем класс, представляющий собой односвязный список
 class LinkedList {
 private:
     Node* head;
 public:
-    LinkedList() : head(nullptr) {}
-    void insert(int value) {
+    LinkedList() : head(nullptr) {} // Устанавливаем начало списка
+    void insert(int value) { // Вставка нового элемента
         Node* newNode = new Node;
         newNode->data = value;
         newNode->next = nullptr;
@@ -24,6 +26,7 @@ public:
             current->next = newNode;
         }
     }
+// Удаление последних двух элементов
     void removeLastTwo() {
         if (head == nullptr || head->next == nullptr) {
             // Пустой список или список из одного элемента
@@ -41,6 +44,7 @@ public:
             delete current;
         }
     }
+// Вывод списка на экран
     void printList() {
         Node* current = head;
         while (current != nullptr) {
@@ -59,11 +63,12 @@ int main() {
     do {
         cin >> input;
         if (input != 0) {
-            list.insert(input);
+            list.insert(input); // Добавляем введенные значения в список
         }
     } while (input != 0);
-    list.removeLastTwo();
+    list.removeLastTwo(); // Удаляем последние 2 значения
     cout << "Список после удаления двух последних элементов: ";
-    list.printList();
+    list.printList(); // Выводим список
     return 0;
 }
+
