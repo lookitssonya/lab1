@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// Определение структуры узла списка
+// Определение структуры Node, которая представляет собой узел очереди
 struct Node {
     string data;
     Node* next;
@@ -27,7 +27,7 @@ public:
         newNode->data = value;
         newNode->next = nullptr;
         if (isEmpty()) {
-            front = rear = newNode; // Если очередь пуста, новый узел ста-новит-ся началом и концом очереди
+            front = rear = newNode; // Если очередь пуста, новый узел становится началом и кон-цом очереди
         }
         else {
             rear->next = newNode; // Добавление нового узла в конец очереди
@@ -64,7 +64,7 @@ public:
     // Найти суммарную длину всех строк, кроме последней
     int sumStringLength() {
         if (isEmpty() || front == rear) {
-            return 0; // Если очередь пуста или содержит только один эле-мент, суммарная длина будет равна 0
+            return 0; // Если очередь пуста или содержит только один элемент, суммарная длина будет равна 0
         }
         int sum = 0;
         Node* current = front;
@@ -94,3 +94,4 @@ int main() {
     cout << "Суммарная длина строк, кроме последней: " << sumLength << endl;
     return 0;
 }
+
