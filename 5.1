@@ -1,9 +1,11 @@
 #include <iostream>
 using namespace std;
+// Определяем структуру Node, представляющая элемент односвязного списка
 struct Node {
     double data;
     Node* next;
 };
+// Объявляем класс, представляющий собой односвязный список
 class LinkedList {
 private:
     Node* head;
@@ -24,6 +26,7 @@ public:
             current->next = newNode;
         }
     }
+    // Вставка нового элемента после отрицательного значения
     void insertAfterNegative() {
         Node* current = head;
         while (current != nullptr) {
@@ -32,13 +35,14 @@ public:
                 newNode->data = 1.5;
                 newNode->next = current->next;
                 current->next = newNode;
-                current = newNode->next; // Пропускаем только что вставлен-ный узел
+                current = newNode->next; 
             }
             else {
                 current = current->next;
             }
         }
     }
+	 // Удаляем элементы в диапазоне от 2 до 5
     void removeRange() {
         Node* current = head;
         Node* prev = nullptr;
