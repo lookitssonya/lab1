@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std; 
-
+// Определяем структуру Node, представляющую собой элемент двусвязного списка
 struct Node {
     double data;
     Node* prev;
     Node* next;
 };
+// Определение класса, который представляет собой двусвязный список
 class LinkedList {
 private:
     Node* head;
