@@ -1,11 +1,11 @@
 #include <iostream>
 using namespace std;
-
+// Определяем структуру Node, представляющую собой узел в односвязном списке
 struct Node {
     int data;
     Node* next;
 };
-
+// Объявление функции, которая принимает четыре указателя на узлы. Функция будет выполнять объединение этих очередей и возвращать указатель на начало новой очереди
 Node* mergeQueues(Node* P1, Node* P2, Node* P3, Node* P4) {
     Node* newQueueStart = nullptr;
     Node* newQueueEnd = nullptr;
